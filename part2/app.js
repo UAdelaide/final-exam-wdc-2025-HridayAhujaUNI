@@ -10,7 +10,7 @@ app.use(session({
   secret: '1aksdakmd',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 //
 
@@ -26,4 +26,5 @@ app.use('/api/walks', walkRoutes);
 app.use('/api/users', userRoutes);
 
 // Export the app instead of listening here
+
 module.exports = app;
