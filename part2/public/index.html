@@ -58,6 +58,10 @@
 						}
 					}).then(data => {
 						console.log(data);
+						localStorage.setItem('loginCreds', JSON.stringify({
+							username: this.username,
+							password: this.password
+						}));
 						if(data.user.role === 'owner'){
 							window.location.href = '/owner-dashboard.html';
 						} else if(data.user.role === 'walker'){
@@ -67,7 +71,19 @@
 						console.error(error);
 						alert(error.message);
 					})
+				},
+				autoLogin() {
+					const saved = localStorage.getItem('loginCreds');
+					if (saved) {
+						const creds = JSON.parse(saved);
+						this.username = creds.username;
+						this.password = creds.password;
+						this.handleLogin();
+					}
 				}
+			},
+			mounted() {
+				this.autoLogin();
 			}
 		}).mount('#app');
 	</script>
