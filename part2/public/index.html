@@ -60,7 +60,8 @@
 						console.log(data);
 						localStorage.setItem('loginCreds', JSON.stringify({
 							username: this.username,
-							password: this.password
+							password: this.password,
+							user: data.user.user_id
 						}));
 						if(data.user.role === 'owner'){
 							window.location.href = '/owner-dashboard.html';
