@@ -27,6 +27,29 @@
 
 			<button type="submit" class="btn btn-primary">Log In</button>
 		</form>
+		<h2 class="mb-4 fw-bold">All Registered Dogs</h2>
+		<table class="table table-striped align-middle">
+			<thead class="table-dark">
+				<tr>
+				<th scope="col">Dog ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">Size</th>
+				<th scope="col">Owner ID</th>
+				<th scope="col">Photo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="dog,i in dogs" :key="dog.dog_id">
+				<td>{{ dog.dog_id }}</td>
+				<td>{{ dog.dog_name }}</td>
+				<td>{{ dog.size }}</td>
+				<td>{{ dog.owner_id }}</td>
+				<td>
+					<img :src="dog.photo" style="height: 80px;" alt="Dog photo">
+				</td>
+				</tr>
+			</tbody>
+   	 	</table>
 	</div>
 
 	<script>
@@ -36,10 +59,28 @@
 				return {
 					message: 'Welcome to the Dog Walking Service!',
 					username: '',
-					password: ''
+					password: '',
+					dogs: []
 				};
 			},
 			methods: {
+				async loadDogs () {
+					try {
+						const res = await fetch('/api/users/dogs');
+						if (!res.ok) throw new Error('Failed to fetch dog data');
+						this.dogs = await res.json();
+						for (const element of this.dogs) {
+							const res = await fetch('https://dog.ceo/api/breeds/image/random');
+							const data = await res.json();
+							element.photo = data.message;
+						}
+						console.log(this.dogs)
+					} catch (err) {
+						console.error(err);
+						error.value = 'Unable to load dogs';
+					}
+				},
+
 				handleLogin() {
 					fetch('/api/users/login',{
 						method:'POST',
@@ -85,6 +126,7 @@
 			},
 			mounted() {
 				this.autoLogin();
+				this.loadDogs();
 			}
 		}).mount('#app');
 	</script>

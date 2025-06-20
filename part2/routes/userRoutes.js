@@ -75,4 +75,19 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+// Modified from part1 ( added owner id as well as username because according to the video we need owner id)
+router.get('/dogs', async (req, res) => {
+  try {
+    const [dogs] = await db.query(`
+            SELECT d.dog_id as dog_id, d.name AS dog_name, d.size, u.username AS owner_username , u.user_id as owner_id
+            FROM Dogs d
+            JOIN Users u ON d.owner_id = u.user_id
+        `);
+    res.json(dogs);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch' });
+  }
+});
+
 module.exports = router;
