@@ -8,7 +8,7 @@
 	<body>
 		<div @load="fetchDog" id="app">
 			<h1>CLICK FOR MORE!!</h1>
-			<button @click="fetchDog">🐶</button>
+			<button type="button" @click="fetchDog">🐶</button>
 			<p>{{ dogName }}</p>
 			<img :src="dogImage" alt="">
 		</div>
