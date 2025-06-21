@@ -33,7 +33,7 @@ async function initializeDatabase() {
                 ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted'),
                 ((SELECT dog_id FROM Dogs WHERE name = 'Oreo'), '2025-06-11 07:00:00', 60, 'Botanic Garden', 'completed'),
                 ((SELECT dog_id FROM Dogs WHERE name = 'Haley'), '2025-06-11 10:15:00', 40, 'Riverside Walk', 'completed'),
-                ((SELECT dog_id FROM Dogs WHERE name = 'Panda'), '2025-06-12 08:45:00', 35, 'Central Park', 'cancelled');
+                ((SELECT dog_id FROM Dogs WHERE name = 'Panda'), '2025-06-12 08:45:00', 35, 'Central Park', 'cancelled')
             `);
 
       await db.query(`INSERT INTO WalkRatings (request_id, walker_id, owner_id, rating, comments) VALUES

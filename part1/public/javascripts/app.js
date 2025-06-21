@@ -3,7 +3,7 @@ createApp({
   data() {
     return {
       dogImage: '',
-      dogName: 'MC Dog'
+      dogName: 'German Shepherd'
     };
   },
   methods: {
